@@ -32,10 +32,21 @@ button:hover {
 	cursor: pointer;
 }
 
+#pop-up {
+	visibility: hidden;
+	width: 16em;
+	padding: 1em 0;
+}
+
+#pop-up input {
+	color: rgb(31, 41, 54);
+}
+
 #grid-container {
 	width: 100vh;
 	height: 100vh;
 	display: flex;
+	align-items: center;
 	justify-content: center;
 }
 

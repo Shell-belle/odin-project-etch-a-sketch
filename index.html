@@ -12,6 +12,7 @@
 		<h1>Etch-a-Sketchpad</h1>
 		<p>Explanitory text</p>
 		<button id="square-change-btn">Change Grid</button>
+		<div id = "pop-up">Input desired number of grid squares along the x and y axes: <input id = "input"></input><div id = "request"></div></div>
 	</div>
 	<div id = "grid-container">
 		<div id ="grid-background"></div>
@@ -20,7 +21,9 @@
 	<script type="text/javascript">
 		const grid_container_ele = document.querySelector("#grid-container");
 		const grid_background_ele = document.querySelector("#grid-background");
+
 		let grid_square_num = 16;
+
 
 		function createGrid(grid_size) {
 			grid_background_ele.innerHTML = " ";
@@ -42,12 +45,21 @@
 			}
 		}
 
-		//this needs to be fixed
+		
 		function resizeGrid (grid_size) {
-			const grid_square_ele = document.querySelector(".grid-square");
+			
+			const grid_square_ele_nodes = document.querySelectorAll(".grid-square");
 			const grid_available_height = grid_container_ele.clientHeight;
-			grid_square_ele.style.height = Math.floor(grid_available_height / grid_size);
-			grid_square_ele.style.width = Math.floor(grid_available_height / grid_size);
+			let grid_square_ele = document.querySelector(".grid-square")
+
+			grid_background_ele.style.height = (Math.floor(grid_available_height / grid_size)) * grid_size + "px";
+			grid_background_ele.style.width = (Math.floor(grid_available_height / grid_size)) * grid_size + "px";
+			grid_square_ele_nodes.forEach(
+				function(node) {
+					node.style.height = Math.floor(grid_available_height / grid_size) + "px";
+					node.style.width = Math.floor(grid_available_height / grid_size) + "px";
+				});
+			console.log(grid_square_ele_nodes);
 
 		}
 
@@ -55,8 +67,37 @@
 			resizeGrid(grid_square_num);
 		}
 
+		 function inputKeyEvent() {
+	        if (event.key == "Enter") {
+	          const input_ele = document.querySelector("#input");
+	          const pop_up_ele = document.querySelector("#pop-up");
+	          const request_ele = document.querySelector("#request")
+	          grid_square_num = Math.floor(Number(input_ele.value));
+	          if (grid_square_num > 100 || grid_square_num < 1) {
+	          	request_ele.textContent = "Please select a number between 1 and 100."
+	          }
+	          else {
+	          	request_ele.textContent = " "
+	          	createGrid(grid_square_num);
+	          	pop_up_ele.style.visibility = "hidden";
+	          }
+	         
+	        }
+      	}
+
+		const gridsize_btn_ele = document.querySelector("#square-change-btn");
+
+		function changeGrid() {
+			const pop_up_ele = document.querySelector("#pop-up");
+			const input_ele = document.querySelector("#input");
+			pop_up_ele.style.visibility = "visible";
+			input_ele.addEventListener("keypress", inputKeyEvent)
+		}
+
+
 		createGrid(grid_square_num);
 		window.addEventListener("resize", windowResize);
+		gridsize_btn_ele.addEventListener("click", changeGrid)
 	</script>
 </body>
 </html>
