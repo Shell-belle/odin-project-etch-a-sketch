@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Etch-a-Sketch</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<template id = "grid-template"><div class= "grid-square"></div></template>
+	<div id="left-sidebar">
+		<h1>Etch-a-Sketchpad</h1>
+		<p>Explanitory text</p>
+		<button id="square-change-btn">Change Grid</button>
+	</div>
+	<div id = "grid-container">
+		<div id ="grid-background"></div>
+	</div>
+
+	<script type="text/javascript">
+		const grid_container_ele = document.querySelector("#grid-container");
+		const grid_background_ele = document.querySelector("#grid-background");
+		let grid_square_num = 16;
+
+		function createGrid(grid_size) {
+			grid_background_ele.innerHTML = " ";
+			const grid_available_height = grid_container_ele.clientHeight;
+			const square_width = Math.floor(grid_available_height / grid_size);
+			const total_square_width = square_width * grid_size;
+			grid_background_ele.style.width = total_square_width + "px";
+			grid_background_ele.style.height = total_square_width + "px";
+			const square_amount = grid_size * grid_size;
+			const template_ele = document.querySelector("#grid-template");
+
+			for (let i = 0; i < square_amount; i++) {
+				let temporary_document = template_ele.content.cloneNode(true);
+				let temporary_div = temporary_document.querySelector('.grid-square');
+				temporary_div.style.width= square_width + "px";
+				temporary_div.style.height= square_width + "px";
+
+				grid_background_ele.appendChild(temporary_document);
+			}
+		}
+
+		//this needs to be fixed
+		function resizeGrid (grid_size) {
+			const grid_square_ele = document.querySelector(".grid-square");
+			const grid_available_height = grid_container_ele.clientHeight;
+			grid_square_ele.style.height = Math.floor(grid_available_height / grid_size);
+			grid_square_ele.style.width = Math.floor(grid_available_height / grid_size);
+
+		}
+
+		function windowResize() {
+			resizeGrid(grid_square_num);
+		}
+
+		createGrid(grid_square_num);
+		window.addEventListener("resize", windowResize);
+	</script>
+</body>
+</html>
