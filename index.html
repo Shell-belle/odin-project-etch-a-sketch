@@ -8,20 +8,27 @@
 </head>
 <body>
 	<template id = "grid-template"><div class= "grid-square"></div></template>
-	<div id="left-sidebar">
-		<h1>Etch-a-Sketchpad</h1>
-		<p>Explanitory text</p>
-		<button id="square-change-btn">Change Grid</button>
-		<div id = "pop-up">Input desired number of grid squares along the x and y axes: <input id = "input"></input><div id = "request"></div></div>
+	<div id ="content-container">
+		<div id="left-sidebar">
+			<h1>Etch-a-Sketchpad</h1>
+		</div>
+		<div id = "grid-container">
+			<div id ="grid-background"></div>
+		</div>
+		<div id = "right-sidebar">
+			<button id="square-change-btn">Change Grid</button>
+			<div id = "pop-up">Input desired number of grid squares along the x and y axes: <input id = "input"></input><div id = "request"></div></div>
+		</div>
 	</div>
-	<div id = "grid-container">
-		<div id ="grid-background"></div>
+	<div id = "footer">
+		<div class = "handle"><div class="inner-handle"></div></div>
+		<div class = "handle"><div class="inner-handle"></div></div>
 	</div>
-
 	<script type="text/javascript">
 		const grid_container_ele = document.querySelector("#grid-container");
 		const grid_background_ele = document.querySelector("#grid-background");
 
+		let fill_color = 35;
 		let grid_square_num = 16;
 
 
@@ -42,6 +49,7 @@
 				temporary_div.style.height= square_width + "px";
 
 				grid_background_ele.appendChild(temporary_document);
+				temporary_div.addEventListener("mouseover", fillSquare);
 			}
 		}
 
@@ -94,9 +102,34 @@
 			input_ele.addEventListener("keypress", inputKeyEvent)
 		}
 
+		function fillSquare() {
+			let r = Math.round((6*Math.random())-3)+fill_color;
+			let g = Math.round((6*Math.random())-3)+fill_color;
+			let b = Math.round((6*Math.random())-3)+fill_color;
+			event.target.style.background = `rgb(${r}, ${g}, ${b})`;
+		}
+
+		function colorChange() {
+			if (event.key === "o") {
+				fill_color += 10;
+			}
+
+			if (event.key === "p") {
+				fill_color -= 10;
+			}
+
+			if (fill_color > 252) {
+				fill_color = 252;
+			}
+
+			if (fill_color < 3) {
+				fill_color = 3;
+			}
+		}
 
 		createGrid(grid_square_num);
 		window.addEventListener("resize", windowResize);
+		window.addEventListener("keypress", colorChange)
 		gridsize_btn_ele.addEventListener("click", changeGrid)
 	</script>
 </body>

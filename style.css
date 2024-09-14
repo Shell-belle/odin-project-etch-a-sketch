@@ -8,11 +8,14 @@
 
 body {
 	background: rgb(31, 41, 54);
+}
+
+#content-container {
 	display: flex;
 }
 
 #left-sidebar {
-	padding: .5em 1em 0 .5em;
+	padding: 1em 1em 0 1em;
 }
 
 h1 {
@@ -24,6 +27,8 @@ button {
 	padding: .5em;
 	border: none;
 	border-radius: 1em;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 button:hover {
@@ -51,7 +56,7 @@ button:hover {
 }
 
 #grid-background {
-	background: rgb(249, 250, 248);
+	background: rgb(109, 116, 125);
 	display: flex;
 	width: 0;
 	height: 0;
@@ -59,11 +64,44 @@ button:hover {
 	flex-wrap: wrap;
 }
 
-.grid-square {
-	border: solid black 1px;
+.grid-square:hover {
+	cursor: none;
+	background: rgb(31, 41, 54);
 }
 
-.grid-square:hover {
-	cursor: crosshair;
-	background: rgb(109, 116, 125);
+#right-sidebar {
+	padding: 1em 0 0 .5em;
+	display: flex;
+	flex-direction: column;
+}
+
+#pop-up input {
+	margin-top: .5em;
+	padding: .1em;
+	width: 3em;
+}
+
+#footer {
+	display: flex;
+	justify-content: space-between;
+	margin-top: -11.5em;
+}
+
+.handle {
+	width: 10em;
+	height: 10em;
+	background: rgb(249, 250, 248);
+	border-radius: 100%;
+	margin: 0 2em 0 2em;
+	border: dotted rgb(31, 41, 54) 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.inner-handle {
+	width: 8.5em;
+	height: 8.5em;
+	background: rgb(109, 116, 125, 15%);
+	border-radius: 100%;
 }
